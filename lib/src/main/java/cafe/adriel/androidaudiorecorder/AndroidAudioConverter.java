@@ -30,10 +30,19 @@ public class AndroidAudioConverter {
         }
     }
 
+    private Context context;
+    private File audioFile;
+    private AudioFormat format;
+    private IConvertCallback callback;
+
     private static boolean load;
 
-    private AndroidAudioConverter(){
+    private AndroidAudioConverter(Context context){
+        this.context = context;
+    }
 
+    public static boolean isLoad(){
+        return load;
     }
 
     public static void load(Context context, final IInitCallback callback){
@@ -68,21 +77,40 @@ public class AndroidAudioConverter {
         }
     }
 
-    public static void convert(Context context, File originalFile, AudioFormat format, final IConvertCallback callback) {
+    public static AndroidAudioConverter with(Context context) {
+        return new AndroidAudioConverter(context);
+    }
+
+    public AndroidAudioConverter setFile(File originalFile) {
+        this.audioFile = originalFile;
+        return this;
+    }
+
+    public AndroidAudioConverter setFormat(AudioFormat format) {
+        this.format = format;
+        return this;
+    }
+
+    public AndroidAudioConverter setCallback(IConvertCallback callback) {
+        this.callback = callback;
+        return this;
+    }
+
+    public void convert() {
         if(!isLoad()){
             callback.onFailure(new Exception("FFmpeg not loaded"));
             return;
         }
-        if(originalFile == null || !originalFile.exists()){
+        if(audioFile == null || !audioFile.exists()){
             callback.onFailure(new IOException("File not exists"));
             return;
         }
-        if(!originalFile.canRead()){
+        if(!audioFile.canRead()){
             callback.onFailure(new IOException("Can't read the file. Missing permission?"));
             return;
         }
-        final File convertedFile = getConvertedFile(originalFile, format);
-        String[] cmd = new String[]{"-y", "-i", originalFile.getPath(), convertedFile.getPath()};
+        final File convertedFile = getConvertedFile(audioFile, format);
+        String[] cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
         try {
             FFmpeg.getInstance(context)
                     .execute(cmd, new FFmpegExecuteResponseHandler() {
@@ -114,10 +142,6 @@ public class AndroidAudioConverter {
         } catch (FFmpegCommandAlreadyRunningException e){
             callback.onFailure(e);
         }
-    }
-
-    public static boolean isLoad(){
-        return load;
     }
 
     private static File getConvertedFile(File originalFile, AudioFormat format){

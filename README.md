@@ -42,20 +42,25 @@ public class App extends Application {
 
 3 - Convert audio files async
 ```java
-File wavFile = new File(Environment.getExternalStorageDirectory(), "my_audio.wav");
-AndroidAudioConverter.convert(this, 
-    wavFile, // Your current audio file 
-    AndroidAudioConverter.AudioFormat.AAC, // Your desired audio format 
-    new IConvertCallback() {
-        @Override
-        public void onSuccess(File convertedFile) {
-            // So fast? Love it! 
-        }
-        @Override
-        public void onFailure(Exception error) {
-            // Oops! Something went wrong
-        }
-    });
+File wavFile = new File(Environment.getExternalStorageDirectory(), "my_audio.flac");
+IConvertCallback callback = new IConvertCallback() {
+    @Override
+    public void onSuccess(File convertedFile) {
+        // So fast? Love it!
+    }
+    @Override
+    public void onFailure(Exception error) {
+        // Oops! Something went wrong
+    }
+};
+AndroidAudioConverter.with(this)
+    // Your current audio file
+    .setFile(wavFile)  
+    // Your desired audio format 
+    .setFormat(AndroidAudioConverter.AudioFormat.MP3)
+    // An callback to know when conversion is finished
+    .setCallback(callback)
+    .convert();
 ```
 
 ## Import to your project
@@ -68,7 +73,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.1'
+  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.2'
 }
 ```
 
