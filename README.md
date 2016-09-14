@@ -53,7 +53,7 @@ AndroidAudioConverter.convert(this,
         }
         @Override
         public void onFailure(Exception error) {
-            // Oops! Somethin went wrong
+            // Oops! Something went wrong
         }
     });
 ```
