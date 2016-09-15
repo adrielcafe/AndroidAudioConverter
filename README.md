@@ -81,7 +81,7 @@ dependencies {
 * [FFmpeg-Android-Java](https://github.com/WritingMinds/ffmpeg-android-java)
 
 ## Want to RECORD AUDIO into your app?
-**Take a look at [AndroidAudioRecorder](https://github.com/adrielcafe/AndroidAudioRecorder)!**
+**Take a look at [AndroidAudioRecorder](https://github.com/adrielcafe/AndroidAudioRecorder)! Example of usage [here](https://github.com/adrielcafe/AndroidAudioRecorder/issues/8#issuecomment-247311572).**
 
 ## License
 ```
