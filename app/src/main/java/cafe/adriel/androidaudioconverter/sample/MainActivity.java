@@ -8,8 +8,8 @@ import android.util.Log;
 
 import java.io.File;
 
-import cafe.adriel.androidaudiorecorder.AndroidAudioConverter;
-import cafe.adriel.androidaudiorecorder.callback.IConvertCallback;
+import cafe.adriel.androidaudioconverter.AndroidAudioConverter;
+import cafe.adriel.androidaudioconverter.callback.IConvertCallback;
 
 public class MainActivity extends AppCompatActivity {
 

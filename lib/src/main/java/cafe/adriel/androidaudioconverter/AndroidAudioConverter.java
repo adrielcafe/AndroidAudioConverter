@@ -1,4 +1,4 @@
-package cafe.adriel.androidaudiorecorder;
+package cafe.adriel.androidaudioconverter;
 
 import android.content.Context;
 
@@ -11,8 +11,8 @@ import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedExceptio
 import java.io.File;
 import java.io.IOException;
 
-import cafe.adriel.androidaudiorecorder.callback.IConvertCallback;
-import cafe.adriel.androidaudiorecorder.callback.IInitCallback;
+import cafe.adriel.androidaudioconverter.callback.IConvertCallback;
+import cafe.adriel.androidaudioconverter.callback.IInitCallback;
 
 public class AndroidAudioConverter {
 

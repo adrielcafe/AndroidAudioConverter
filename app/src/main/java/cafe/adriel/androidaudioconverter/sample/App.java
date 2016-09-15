@@ -4,8 +4,8 @@ import android.app.Application;
 
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
-import cafe.adriel.androidaudiorecorder.AndroidAudioConverter;
-import cafe.adriel.androidaudiorecorder.callback.IInitCallback;
+import cafe.adriel.androidaudioconverter.AndroidAudioConverter;
+import cafe.adriel.androidaudioconverter.callback.IInitCallback;
 
 public class App extends Application {
     @Override
