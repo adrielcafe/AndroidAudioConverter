@@ -5,14 +5,12 @@ import android.content.Context;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.FFmpegExecuteResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpegLoadBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 import java.io.IOException;
 
 import cafe.adriel.androidaudioconverter.callback.IConvertCallback;
-import cafe.adriel.androidaudioconverter.callback.IInitCallback;
+import cafe.adriel.androidaudioconverter.callback.ILoadCallback;
 
 public class AndroidAudioConverter {
 
@@ -45,7 +43,7 @@ public class AndroidAudioConverter {
         return load;
     }
 
-    public static void load(Context context, final IInitCallback callback){
+    public static void load(Context context, final ILoadCallback callback){
         try {
             FFmpeg.getInstance(context)
                     .loadBinary(new FFmpegLoadBinaryResponseHandler() {
@@ -63,7 +61,7 @@ public class AndroidAudioConverter {
                         @Override
                         public void onFailure() {
                             load = false;
-                            callback.onFailure(new FFmpegNotSupportedException("Failed to load FFmpeg lib"));
+                            callback.onFailure(new Exception("Failed to load FFmpeg lib"));
                         }
 
                         @Override
@@ -71,7 +69,7 @@ public class AndroidAudioConverter {
 
                         }
                     });
-        } catch (FFmpegNotSupportedException e){
+        } catch (Exception e){
             load = false;
             callback.onFailure(e);
         }
@@ -139,7 +137,7 @@ public class AndroidAudioConverter {
 
                         }
                     });
-        } catch (FFmpegCommandAlreadyRunningException e){
+        } catch (Exception e){
             callback.onFailure(e);
         }
     }

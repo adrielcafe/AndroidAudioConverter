@@ -26,7 +26,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        AndroidAudioConverter.load(this, new IInitCallback() {
+        AndroidAudioConverter.load(this, new ILoadCallback() {
             @Override
             public void onSuccess() {
                 // Great!
@@ -73,7 +73,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.4'
+  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.5'
 }
 ```
 
