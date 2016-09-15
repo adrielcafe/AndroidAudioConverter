@@ -73,7 +73,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.2'
+  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.3'
 }
 ```
 
