@@ -15,38 +15,37 @@ import cafe.adriel.androidaudioconverter.callback.ILoadCallback;
 public class AndroidAudioConverter {
 
     public enum AudioFormat {
-        WAV,
         AAC,
         MP3,
         M4A,
         WMA,
+        WAV,
         FLAC;
 
         @Override
         public String toString() {
-            return super.toString().toLowerCase();
+            return name().toLowerCase();
         }
     }
+
+    private static boolean loaded;
 
     private Context context;
     private File audioFile;
     private AudioFormat format;
     private IConvertCallback callback;
 
-    private static boolean load;
-
     private AndroidAudioConverter(Context context){
         this.context = context;
     }
 
-    public static boolean isLoad(){
-        return load;
+    public static boolean isLoaded(){
+        return loaded;
     }
 
     public static void load(Context context, final ILoadCallback callback){
         try {
-            FFmpeg.getInstance(context)
-                    .loadBinary(new FFmpegLoadBinaryResponseHandler() {
+            FFmpeg.getInstance(context).loadBinary(new FFmpegLoadBinaryResponseHandler() {
                         @Override
                         public void onStart() {
 
@@ -54,14 +53,14 @@ public class AndroidAudioConverter {
 
                         @Override
                         public void onSuccess() {
-                            load = true;
+                            loaded = true;
                             callback.onSuccess();
                         }
 
                         @Override
                         public void onFailure() {
-                            load = false;
-                            callback.onFailure(new Exception("Failed to load FFmpeg lib"));
+                            loaded = false;
+                            callback.onFailure(new Exception("Failed to loaded FFmpeg lib"));
                         }
 
                         @Override
@@ -70,7 +69,7 @@ public class AndroidAudioConverter {
                         }
                     });
         } catch (Exception e){
-            load = false;
+            loaded = false;
             callback.onFailure(e);
         }
     }
@@ -95,7 +94,7 @@ public class AndroidAudioConverter {
     }
 
     public void convert() {
-        if(!isLoad()){
+        if(!isLoaded()){
             callback.onFailure(new Exception("FFmpeg not loaded"));
             return;
         }
@@ -108,10 +107,9 @@ public class AndroidAudioConverter {
             return;
         }
         final File convertedFile = getConvertedFile(audioFile, format);
-        String[] cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
+        final String[] cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
         try {
-            FFmpeg.getInstance(context)
-                    .execute(cmd, new FFmpegExecuteResponseHandler() {
+            FFmpeg.getInstance(context).execute(cmd, new FFmpegExecuteResponseHandler() {
                         @Override
                         public void onStart() {
 
@@ -144,7 +142,7 @@ public class AndroidAudioConverter {
 
     private static File getConvertedFile(File originalFile, AudioFormat format){
         String[] f = originalFile.getPath().split("\\.");
-        String filePath = originalFile.getPath().replace("." + f[f.length - 1], "." + format);
+        String filePath = originalFile.getPath().replace(f[f.length - 1], format.toString());
         return new File(filePath);
     }
 }

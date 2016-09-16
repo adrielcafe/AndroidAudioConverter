@@ -1,10 +1,12 @@
 package cafe.adriel.androidaudioconverter.sample;
 
+import android.Manifest;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -18,16 +20,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Giving time to lib load
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                convertAudio();
-            }
-        }, 2000);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(
+                    new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
+        }
+
+        Util.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Util.requestPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void convertAudio(){
+    public void convertAudio(View v){
         /**
          *  Update with a valid audio file!
          *  Supported formats: {@link AndroidAudioConverter.AudioFormat}
@@ -36,13 +38,14 @@ public class MainActivity extends AppCompatActivity {
         IConvertCallback callback = new IConvertCallback() {
             @Override
             public void onSuccess(File convertedFile) {
-                Log.d("SUCCESS", convertedFile.getPath());
+                Toast.makeText(MainActivity.this, "SUCCESS: " + convertedFile.getPath(), Toast.LENGTH_LONG).show();
             }
             @Override
             public void onFailure(Exception error) {
-                error.printStackTrace();
+                Toast.makeText(MainActivity.this, "ERROR: " + error.getMessage(), Toast.LENGTH_LONG).show();
             }
         };
+        Toast.makeText(this, "Converting audio file...", Toast.LENGTH_SHORT).show();
         AndroidAudioConverter.with(this)
                 .setFile(wavFile)
                 .setFormat(AndroidAudioConverter.AudioFormat.MP3)
