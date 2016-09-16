@@ -11,22 +11,9 @@ import java.io.IOException;
 
 import cafe.adriel.androidaudioconverter.callback.IConvertCallback;
 import cafe.adriel.androidaudioconverter.callback.ILoadCallback;
+import cafe.adriel.androidaudioconverter.model.AudioFormat;
 
 public class AndroidAudioConverter {
-
-    public enum AudioFormat {
-        AAC,
-        MP3,
-        M4A,
-        WMA,
-        WAV,
-        FLAC;
-
-        @Override
-        public String toString() {
-            return name().toLowerCase();
-        }
-    }
 
     private static boolean loaded;
 
@@ -142,7 +129,7 @@ public class AndroidAudioConverter {
 
     private static File getConvertedFile(File originalFile, AudioFormat format){
         String[] f = originalFile.getPath().split("\\.");
-        String filePath = originalFile.getPath().replace(f[f.length - 1], format.toString());
+        String filePath = originalFile.getPath().replace(f[f.length - 1], format.getFormat());
         return new File(filePath);
     }
 }

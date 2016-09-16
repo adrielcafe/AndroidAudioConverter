@@ -34,7 +34,7 @@ public class App extends Application {
                 // Great!
             }
             @Override
-            public void onFailure(FFmpegNotSupportedException error) {
+            public void onFailure(Exception error) {
                 // FFmpeg is not supported by device
             }
         });
@@ -44,7 +44,7 @@ public class App extends Application {
 
 3 - Convert audio files async
 ```java
-File wavFile = new File(Environment.getExternalStorageDirectory(), "my_audio.flac");
+File flacFile = new File(Environment.getExternalStorageDirectory(), "my_audio.flac");
 IConvertCallback callback = new IConvertCallback() {
     @Override
     public void onSuccess(File convertedFile) {
@@ -57,11 +57,15 @@ IConvertCallback callback = new IConvertCallback() {
 };
 AndroidAudioConverter.with(this)
     // Your current audio file
-    .setFile(wavFile)  
+    .setFile(flacFile)  
+    
     // Your desired audio format 
-    .setFormat(AndroidAudioConverter.AudioFormat.MP3)
+    .setFormat(AudioFormat.MP3)
+    
     // An callback to know when conversion is finished
     .setCallback(callback)
+    
+    // Start conversion
     .convert();
 ```
 
@@ -75,7 +79,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.7'
+  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
 }
 ```
 
