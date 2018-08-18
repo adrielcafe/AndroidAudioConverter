@@ -90,8 +90,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
-  //TODO Change dependency address for newer version
+  compile 'com.github.imesut:AndroidAudioConverter:0.0.9-SNAPSHOT'
 }
 ```
 
