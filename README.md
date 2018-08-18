@@ -60,6 +60,18 @@ AndroidAudioConverter.with(this)
     
     // Your desired audio format 
     .setFormat(AudioFormat.MP3)
+
+    // An optional method for your desired sample rate
+    .setSampleRate(16000)
+    // .setSampleRate(16000) // when not used original sample rate is kept.
+    
+    // An optional method for your desired bitrate
+    .setBitRate(BitRate.s16)
+    // .setBitRate(BitRate.s16) // when not used original bitrate is kept.
+    
+    //An optional method for if output is desired as mono channel or as original
+    .setMono(true)
+    // .setMono(true) // when not used original channel configuration is kept.
     
     // An callback to know when conversion is finished
     .setCallback(callback)
@@ -79,6 +91,7 @@ repositories {
 
 dependencies {
   compile 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
+  //TODO Change dependency address for newer version
 }
 ```
 
