@@ -129,7 +129,26 @@ public class AndroidAudioConverter {
 
     private static File getConvertedFile(File originalFile, AudioFormat format){
         String[] f = originalFile.getPath().split("\\.");
-        String filePath = originalFile.getPath().replace(f[f.length - 1], format.getFormat());
+        f[f.length - 1] = format.getFormat();
+        String filePath = join(f,'.',0,f.length);
         return new File(filePath);
+    }
+
+    private static String join(final String[] array, final char separator, final int startIndex, final int endIndex) {
+        if (array == null) {
+            return null;
+        }
+        final int noOfItems = endIndex - startIndex;
+        if (noOfItems <= 0) {
+            return "";
+        }
+        final StringBuilder buf = new StringBuilder();
+        for (int i = startIndex; i < endIndex; i++) {
+            if (i > startIndex) {
+                buf.append(separator);
+            }
+            buf.append(array[i]);
+        }
+        return buf.toString();
     }
 }
