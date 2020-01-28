@@ -13,6 +13,7 @@ import java.io.File;
 import cafe.adriel.androidaudioconverter.AndroidAudioConverter;
 import cafe.adriel.androidaudioconverter.callback.IConvertCallback;
 import cafe.adriel.androidaudioconverter.model.AudioFormat;
+import cafe.adriel.androidaudioconverter.model.BitRate;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,9 +48,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         Toast.makeText(this, "Converting audio file...", Toast.LENGTH_SHORT).show();
+
         AndroidAudioConverter.with(this)
                 .setFile(wavFile)
                 .setFormat(AudioFormat.MP3)
+                .setSampleRate(16000)
+                .setBitRate(BitRate.s16)
+                .setMono(true)
                 .setCallback(callback)
                 .convert();
     }
