@@ -1,6 +1,6 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidAudioConverter-green.svg?style=true)](https://android-arsenal.com/details/1/4341) [![Release](https://jitpack.io/v/adrielcafe/AndroidAudioConverter.svg)](https://jitpack.io/#adrielcafe/AndroidAudioConverter)
 
-# AndroidAudioConverter
+# Android Audio Converter
 
 > Convert audio files inside your Android app easily. This is a wrapper of [FFmpeg-Android-Java](https://github.com/WritingMinds/ffmpeg-android-java) lib.
 
@@ -14,7 +14,7 @@ Supported formats:
 
 Lib size: ~9mb
 
-## How To Use
+## Directions to use
 
 1 - Add this permission into your `AndroidManifest.xml` and [request in Android 6.0+](https://developer.android.com/training/permissions/requesting.html)
 ```xml
