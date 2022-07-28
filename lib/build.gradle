@@ -20,5 +20,5 @@ android {
 }
 
 dependencies {
-    compile 'com.github.adrielcafe:ffmpeg-android-java:-SNAPSHOT'
+    compile 'com.github.adrielcafe:ffmpeg-android-java:v0.3.2'
 }
